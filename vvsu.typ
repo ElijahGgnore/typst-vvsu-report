@@ -6,7 +6,7 @@
 // Основано на СК-СТО-ТР-04-1.005-2015
 //
 // Vladivostok State University
-// Mark Vodyanitskiy (@mvodya), Arkadiy Schneider (@thebandik) 2026
+// Mark Vodyanitskiy (@mvodya), Arkadiy Schneider (@thebandik), Seined Koda (@seinedkoda) 2026
 
 #let template-name = "vvsu-report"
 #let template-version = version(6, 3)
@@ -242,21 +242,21 @@
 // Расшифровка формулы (после "где", каждый символ – с новой строки)
 // items: массив content вида [$x$ – значение икс] без завершающей пунктуации
 #let decoding(items) = context {
-  let prefix-width = measure([где]).width
-  set par(first-line-indent: 0pt, leading: _msword-leading(1.5))
-  grid(
-    columns: (prefix-width, 1fr),
-    column-gutter: 0.3em,
-    row-gutter: _msword-leading(1.5),
-    ..items
-      .enumerate()
-      .map(((i, item)) => {
-        let label = if i == 0 { [где] } else { [] }
-        let punct = if i == items.len() - 1 { [.] } else { [;] }
-        (label, item + punct)
-      })
-      .flatten()
-  )
+ let prefix-width = measure([где]).width
+ set par(first-line-indent: 0pt, leading: _msword-leading(1.5))
+ grid(
+   columns: (prefix-width, 1fr),
+   column-gutter: 0.3em,
+   row-gutter: _msword-leading(1.5),
+   ..items
+     .enumerate()
+     .map(((i, item)) => {
+       let label = if i == 0 { [где] } else { [] }
+       let punct = if i == items.len() - 1 { [.] } else { [;] }
+       (label, item + punct)
+     })
+     .flatten()
+ )
 }
 
 // Пример использования одной величины в тексте (поясняется одна величина)
@@ -354,10 +354,13 @@
         show enum: it => list-render("enum", level: level + 1, it)
         item.body
       }
-      grid(
-        columns: (1.25cm, 1fr),
-        marker, body,
-      )
+      par(
+        first-line-indent: 0pt,
+        hanging-indent: 0cm,
+        justify: true,
+      )[
+        #h(0cm)#h(1.25cm)#marker #h(0.25cm)#body
+      ]
     }
   }
   show list: it => list-render("list", it)
@@ -382,15 +385,21 @@
     number-align: bottom + right,
   )
 
+  // Не нумеровать формулы в таблицах
+  show table: it => {
+    set math.equation(numbering: none)
+    it
+  }
+
   // Показ формул с правильным расположением:
   // отдельной строкой по центру, по одной свободной строке выше и ниже
   show math.equation.where(block: true): it => {
-    block(
-      above: 12pt + 6pt,
-      below: 12pt + 6pt,
-      breakable: false,
-      it,
-    )
+   block(
+     above: 12pt + 6pt,
+     below: 12pt + 6pt,
+     breakable: false,
+     it,
+   )
   }
 
   // Настройка ссылок на элементы

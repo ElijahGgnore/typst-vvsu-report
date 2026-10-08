@@ -476,7 +476,7 @@
   title3: none, // Название работы (реквизит 8)
   code: none, // Код работы
   stamp: none, // Гриф допуска к защите (реквизит 5)
-  authors: (), // Список авторов (реквизит 9-14)
+  members: (), // Список авторов (реквизит 9-14)
   year: datetime.today().year(), // Год выполнения работы (реквизит 15)
 ) = context {
   // Добавляем метаданные
@@ -586,10 +586,10 @@
       align: bottom,
       column-gutter: 1em,
       row-gutter: 1em,
-      ..authors
-        .map(author => {
-          let role = if type(author) == dictionary and "role" in author { author.role } else { [] }
-          let name = if type(author) == dictionary and "name" in author { author.name } else { [] }
+      ..members
+        .map(member => {
+          let role = if type(member) == dictionary and "role" in member { member.role } else { [] }
+          let name = if type(member) == dictionary and "name" in member { member.name } else { [] }
           ([#role], [#line(length: 100%)], [#name])
         })
         .flatten(),

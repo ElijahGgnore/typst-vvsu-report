@@ -18,6 +18,10 @@
   message: "vvsu-report minimum typst version required: " + repr(minimum-typst-version),
 )
 
+#let member(role: [], name: []) = {
+  (role: role, name: name)
+}
+
 // Конвертация межстрочного интервала из MS Word
 #let _msword-leading(ratio) = (1.15 * ratio - 0.6625) * 1em
 
@@ -588,8 +592,8 @@
       row-gutter: 1em,
       ..members
         .map(member => {
-          let role = if type(member) == dictionary and "role" in member { member.role } else { [] }
-          let name = if type(member) == dictionary and "name" in member { member.name } else { [] }
+          let role = member.role
+          let name = member.name
           ([#role], [#line(length: 100%)], [#name])
         })
         .flatten(),

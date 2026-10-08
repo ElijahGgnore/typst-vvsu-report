@@ -6,7 +6,7 @@
 // Основано на СК-СТО-ТР-04-1.005-2015
 //
 // Vladivostok State University
-// Mark Vodyanitskiy (@mvodya), Arkadiy Schneider (@thebandik), Seined Koda (@seinedkoda) 2026
+// Mark Vodyanitskiy (@mvodya), Arkadiy Schneider (@thebandik), Seined Koda (@seinedkoda), ElijahG (@ElijahGgnore) 2026
 
 #let manifest = toml("typst.toml").package
 #let template-name = manifest.name

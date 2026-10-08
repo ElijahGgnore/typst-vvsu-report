@@ -1,0 +1,4 @@
+[package]
+name = "vvsu-report"
+version = "1.0.0"
+entrypoint = "vvsu.typ"

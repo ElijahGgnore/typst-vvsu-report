@@ -6,10 +6,11 @@
 // Основано на СК-СТО-ТР-04-1.005-2015
 //
 // Vladivostok State University
-// Mark Vodyanitskiy (@mvodya), Arkadiy Schneider (@thebandik), Seined Koda (@seinedkoda) 2026
+// Mark Vodyanitskiy (@mvodya), Arkadiy Schneider (@thebandik), Seined Koda (@seinedkoda), ElijahG (@ElijahGgnore) 2026
 
-#let template-name = "vvsu-report"
-#let template-version = version(6, 3)
+#let manifest = toml("typst.toml").package
+#let template-name = manifest.name
+#let template-version = manifest.version
 
 #let minimum-typst-version = version(0, 14, 0)
 #assert(
